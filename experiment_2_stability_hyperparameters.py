@@ -58,7 +58,7 @@ def get_tm_list(dataset_name):
     # list of topic models
     tm_list = ['bow',  # bow
                'tfidf',  # tfidf
-               f'lda_n_topics_{topic_num}_alpha_asymmetric_iterations_1000_topic_threshold_0.0',  # lda
+               f'lda_n_topics_{topic_num}_alpha_auto_iterations_1000_topic_threshold_0.0',  # lda
                f'lda_linear_combined_n_topics_{topic_num}_alpha_auto_iterations_1000_topic_threshold_0.0',
                # lda_linear_combined
                f'lsi_n_topics_{topic_num}_decay_1.0_onepass_True_power_iters_2_extra_samples_100',  # lsi
@@ -84,7 +84,7 @@ def TM_short(TM, dataset_name):
     topic_num = special_topics[dataset_name]
     if TM in ['bow', 'tfidf']:
         return 'BOW'
-    elif TM in [f'lda_n_topics_{topic_num}_alpha_asymmetric_iterations_1000_topic_threshold_0.0',
+    elif TM in [f'lda_n_topics_{topic_num}_alpha_auto_iterations_1000_topic_threshold_0.0',
                 f'lda_linear_combined_n_topics_{topic_num}_alpha_auto_iterations_1000_topic_threshold_0.0']:
         return 'LDA'
     elif TM in [f'lsi_n_topics_{topic_num}_decay_1.0_onepass_True_power_iters_2_extra_samples_100',

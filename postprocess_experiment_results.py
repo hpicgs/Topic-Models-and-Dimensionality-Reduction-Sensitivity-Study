@@ -14,6 +14,31 @@ whitelisted_drs = ["som", "tsne", "umap", "mds"]
 whitelisted_datasets = ["20_newsgroups", "lyrics", "seven_categories"]
 
 
+def filter_df(df, save_path):
+    columns = df.columns.tolist()
+    if "Unnamed: 0" in columns:
+        df = df.drop(columns=["Unnamed: 0"])
+        columns = df.columns.tolist()
+    new_values = []
+    values = df.values.tolist()
+    for value_line in tqdm(values):
+        dr = value_line[0].replace("0", "").replace("1", "").replace("2", "")
+        tm = value_line[1].lower()
+        file_name_1 = value_line[-2]
+        file_name_2 = value_line[-1]
+        if dr in file_name_1 and dr in file_name_2 and tm in file_name_1 and tm in file_name_2:
+            new_values.append(value_line)
+
+        if tm == "bow":
+            tm = "tfidf"
+            if dr in file_name_1 and dr in file_name_2 and tm in file_name_1 and tm in file_name_2:
+                new_values.append(value_line)
+
+    df = pd.DataFrame(new_values, columns=columns)
+    df.to_csv(save_path, index=False)
+    return df
+
+
 def get_arguments():
     parser = ArgumentParser(description="This script executes experiment 1 analysing all metric correlations")
     parser.add_argument('--dataset_path', dest='dataset_path', type=str,
@@ -179,6 +204,7 @@ def postprocess_experiment_2(file_path, file_name_column="file_name_1"):
     df = df.drop_duplicates(subset=["config", "short_tm_name", "file_name_1", "file_name_2"])
     df = pd.DataFrame(test_interchange_file_names(df.values.tolist(), df.columns.tolist()), columns=columns)
     df = df.sort_values(by=["config", "short_tm_name"])
+    df = filter_df(df=df, save_path=file_path)
     if "Unnamed: 0" in df.columns:
         df = df.drop(columns=["Unnamed: 0"])
     df.to_csv(file_path, index=False)
