@@ -1,5 +1,8 @@
 # Topic-Models-and-Dimensionality-Reduction-Sensitivity-Study
 
+![Bildschirmfoto vom 2024-03-31 18-00-57](https://github.com/hpicgs/Topic-Models-and-Dimensionality-Reduction-Sensitivity-Study/assets/27726055/815312e6-443e-40dd-8311-2067094780c3)
+
+
 # Benchmark Specs
 
 This is the repository for the study "A Large-Scale Sensitivity Analysis on Latent Embeddings and Dimensionality Reductions for Text Spatializations".
